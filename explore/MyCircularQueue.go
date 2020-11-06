@@ -38,16 +38,25 @@ func (this *MyCircularQueue) DeQueue() bool {
 	}
 	this.head = (this.head+1) % len(this.items)
 	this.size -= 1
+	if this.IsEmpty() {
+		this.tail = this.head
+	}
 	return true
 }
 
 /** Get the front item from the queue. */
 func (this *MyCircularQueue) Front() int {
+	if this.IsEmpty() {
+		return -1
+	}
 	return this.items[this.head]
 }
 
 /** Get the last item from the queue. */
 func (this *MyCircularQueue) Rear() int {
+	if this.IsEmpty() {
+		return -1
+	}
 	return this.items[this.tail]
 }
 
