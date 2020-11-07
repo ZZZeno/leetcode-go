@@ -2,47 +2,67 @@ package explore
 
 import "fmt"
 
-// 按理来说leetcode的接口定义的grid是[][]byte类型的，传入的矩阵每个cell是'0'或者'1'，但是我实在是不知道如何把string类型转成byte类型，所以只能写一个[][]string的接口了
-
-func NumIslands(grid [][]string) int {
+func NumIslands(grid [][]byte) int {
 	row := len(grid)
 	col := len(grid[0])
 	i := 0
 	j := 0
 	num := 0
-	for i+j != row+col-2 {
-		if grid[i][j] == "1" {
-			num += 1
-			Mark(grid, i, j, row, col)
-			//Print2DimMatrix(grid)
-		}
-		if i+j != row+col-2 {
-			i = (i + 1) % row
-			if i == 0 && j < col {
-				j += 1
-			}
+	count1 := 0
+	marked := 0
+	for _, cols := range grid {
+		for _, cell := range cols {
+			count1 += int(cell-'0')
 		}
 	}
+	if row == col && row == 1 {
+		if grid[0][0] == '1' {
+			return 1
+		}
+		return 0
+	}
+	
+	for marked < count1 {
+		if grid[i][j] == '1' {
+			num += 1
+			marked += Mark(grid, i, j, row, col)
+			Print2DimMatrix(grid)
+		}
 
+		i = (i + 1) % row
+		if i == 0 && j < col {
+			j += 1
+		}
+		if grid[i][j] == '1' {
+			num += 1
+			marked += Mark(grid, i, j, row, col)
+		}
+	}
 
 	return num
 }
 
-func Mark(grid [][]string, i, j, row, col int) {
+func Mark(grid [][]byte, i, j, row, col int) int {
+	marked := 0
 	rowQueue := Constructor(row)
 	colQueue := Constructor(col)
 	rowQueue.EnQueue(i)
 	colQueue.EnQueue(j)
-	for !colQueue.IsEmpty() {
-		r, c := getItem(&rowQueue, &colQueue)
-		grid[r][c] = "0"
-		if r+1 < row && grid[r+1][c] == "1" {
-			addItem(r+1, c, &rowQueue, &colQueue)
-		}
-		if c+1 < col && grid[r][c+1] == "1" {
-			addItem(r, c+1, &rowQueue, &colQueue)
-		}
+	if i < 0 || j < 0 || i >= row || j >= col {
+		return 0
 	}
+	if grid[i][j] == '0' {
+		return 0
+	}
+
+	grid[i][j] = '0'
+	marked += 1
+
+	marked += Mark(grid, i+1, j, row, col)
+	marked += Mark(grid, i, j+1, row, col)
+	marked += Mark(grid, i-1, j, row, col)
+	marked += Mark(grid, i, j-1, row, col)
+	return marked
 }
 
 func addItem(i, j int, rowQueue, colQueue *MyCircularQueue) {
@@ -58,9 +78,9 @@ func getItem(rowQueue, colQueue *MyCircularQueue) (int, int) {
 	return i, j
 }
 
-func Print2DimMatrix(data [][]string) {
+func Print2DimMatrix(data [][]byte) {
 	for _, item := range data {
-		fmt.Printf("%v \n", item)
+		fmt.Printf("%v \n", string(item))
 	}
 	fmt.Println()
 	fmt.Println()
