@@ -56,3 +56,9 @@ func TestDeleteDuplicates(t *testing.T) {
 	fmt.Println()
 
 }
+
+func TestMerge(t *testing.T) {
+	a := []int {1, 2, 3, 0, 0, 0}
+	b := []int {2, 5, 6}
+	Merge(a, 3, b, 3)
+}
