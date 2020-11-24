@@ -20,23 +20,30 @@ func threeSum(nums []int) [][]int {
 	}
 	sort.Ints(nums)
 	res := [][]int{}
-	for i := 0; i < len(nums) - 2; i ++ {
+	for i := 0; i < len(nums)-2; i++ {
 		lo := i + 1
 		hi := len(nums) - 1
 		for lo < hi {
-			if nums[lo] + nums[hi] + nums[i] == 0{
-				if !checkDup(res, []int{nums[i], nums[lo], nums[hi]}) {
-					res = append(res, []int{nums[i], nums[lo], nums[hi]})
+			if nums[lo]+nums[hi]+nums[i] == 0 {
+				res = append(res, []int{nums[i], nums[lo], nums[hi]})
+				lo++
+				hi--
+				for lo < hi && nums[lo] == nums[lo-1] {
+					lo++
 				}
-				lo ++
-				hi --
+				for hi > lo && hi+1 < len(nums) && nums[hi] == nums[hi+1] {
+					hi--
+				}
 				continue
 			}
-			if nums[lo] + nums[hi] + nums[i] < 0 {
-				lo ++
-			} else if nums[lo] + nums[hi] + nums[i] > 0 {
-				hi --
+			if nums[lo]+nums[hi]+nums[i] < 0 {
+				lo++
+			} else if nums[lo]+nums[hi]+nums[i] > 0 {
+				hi--
 			}
+		}
+		for i+1 < len(nums) && nums[i] == nums[i+1] {
+			i ++
 		}
 	}
 	return res
