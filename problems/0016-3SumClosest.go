@@ -1,21 +1,28 @@
 package problems
 
 import (
-	"fmt"
 	"sort"
 )
 
 func threeSumClosest(nums []int, target int) int {
 	sort.Ints(nums)
 	l := len(nums)
-	min := nums[0] + nums[1] + nums[2]
-	for i := 0; i < l; i++ {
-		for j := i+1; j < l; j ++ {
-			for k := j+1; k < l; k ++ {
-				sum := nums[i] + nums[j] + nums[k]
-				if absRange(sum, target) < absRange(min, target) {
-					min = sum
-				}
+	min := nums[0]+nums[1]+nums[2]
+	for i := 0; i < l-2; i++ {
+		lo := i + 1
+		hi := len(nums) - 1
+		for lo < hi {
+			base := nums[i] + nums[lo] + nums[hi]
+			if absRange(base, target) < absRange(min, target) {
+				min = base
+			}
+			if base == target {
+				return base
+			}
+			if base < target {
+				lo++
+			} else {
+				hi--
 			}
 		}
 	}
@@ -29,6 +36,6 @@ func absRange(a, b int) int {
 	return b - a
 }
 
-func ThreeSumClosest()  {
-	fmt.Println(threeSumClosest([]int{-1, 2, 1, -4}, 1))
+func ThreeSumClosest(nums []int, target int) int {
+	return threeSumClosest(nums, target)
 }
