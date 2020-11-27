@@ -1,10 +1,5 @@
 package chapter6
 
-import (
-	"fmt"
-	"sort"
-)
-
 func findDisappearedNumbers(nums []int) []int {
 	res := make([]int, 0)
 	for i := 0; i < len(nums); i++ {
@@ -18,13 +13,11 @@ func findDisappearedNumbers(nums []int) []int {
 			nextIndex = temp
 		}
 	}
-	fmt.Println(nums)
 	for i := 0; i < len(nums); i++ {
 		if nums[i] != 0 {
 			res = append(res, i+1)
 		}
 	}
-	sort.Ints(res)
 	return res
 }
 
