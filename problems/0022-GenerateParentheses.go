@@ -4,6 +4,28 @@ func generateParenthesis(n int) []string {
 	if n == 0 {
 		return []string{}
 	}
+	res := make([]string, 0)
+	backTracking(n, n, "", &res)
+	return res
+}
+
+func backTracking(leftP, rightP int, current string, res *[]string) {
+	if leftP == 0 && rightP == 0 {
+		*res = append(*res, current)
+		return
+	}
+	if leftP > 0 {
+		backTracking(leftP-1, rightP, current+"(", res)
+	}
+	if rightP > 0 && leftP < rightP {
+		backTracking(leftP, rightP-1, current+")", res)
+	}
+}
+
+func generateParenthesis_low(n int) []string {
+	if n == 0 {
+		return []string{}
+	}
 	if n == 1 {
 		return []string{"()"}
 	}
@@ -25,8 +47,8 @@ func generateParenthesis(n int) []string {
 }
 
 func Order(front, behind int, mp map[string]bool) map[string]bool {
-	frontParenthesis := generateParenthesis(front)
-	backParenthesis := generateParenthesis(behind)
+	frontParenthesis := generateParenthesis_low(front)
+	backParenthesis := generateParenthesis_low(behind)
 	lf := len(frontParenthesis)
 	bf := len(backParenthesis)
 	//res := make([]string, lf*bf)
@@ -40,7 +62,7 @@ func Order(front, behind int, mp map[string]bool) map[string]bool {
 }
 
 func Wrapper(outer, inner int, mp map[string]bool) {
-	innerParenthesis := generateParenthesis(inner)
+	innerParenthesis := generateParenthesis_low(inner)
 	//outerParenthesis := make([]string, len(innerParenthesis))
 	for _, v := range innerParenthesis {
 		mp[repeat('(', outer)+v+repeat(')', outer)] = true
@@ -56,5 +78,6 @@ func repeat(cha byte, n int) string {
 }
 
 func GenerateParenthesis(n int) []string {
+	//return generateParenthesis_low(n)
 	return generateParenthesis(n)
 }
