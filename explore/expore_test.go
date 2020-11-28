@@ -2,12 +2,13 @@ package explore
 
 import (
 	"fmt"
+	"leetcode-go/explore/Queues"
 	"testing"
 )
 
 func TestMyCircularQueue(t *testing.T) {
 
-	obj := Constructor(6)
+	obj := Queues.Constructor(6)
 	fmt.Println(obj.EnQueue(6))
 	fmt.Println(obj.Rear())
 	fmt.Println(obj.Rear())
@@ -48,7 +49,7 @@ func TestNums(t *testing.T) {
 		{"1","1","0","0","0"},
 		{"0","0","0","0","0"},
 	}
-	fmt.Println(NumIslands(grid))
+	fmt.Println(Queues.NumIslands(grid))
 }
 
 func TestMark(t *testing.T) {
@@ -65,7 +66,7 @@ func TestMark(t *testing.T) {
 		{"1","1","0","0","0"},
 		{"0","0","0","0","0"},
 	}
-	Print2DimMatrix(grid)
-	Mark(grid, 0, 0, 4, 5)
-	Print2DimMatrix(grid)
+	Queues.Print2DimMatrix(grid)
+	Queues.Mark(grid, 0, 0, 4, 5)
+	Queues.Print2DimMatrix(grid)
 }

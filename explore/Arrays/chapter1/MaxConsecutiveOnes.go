@@ -1,4 +1,4 @@
-package Arrays
+package chapter1
 
 //Input: [1,1,0,1,1,1]
 //Output: 3

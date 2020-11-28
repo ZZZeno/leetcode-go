@@ -1,4 +1,4 @@
-package Arrays
+package chapter1
 
 import "sort"
 
