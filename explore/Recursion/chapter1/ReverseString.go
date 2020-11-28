@@ -1,4 +1,4 @@
-package Recursion
+package chapter1
 
 func reverseString(s []byte)  {
 	lo := 0

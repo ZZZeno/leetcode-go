@@ -3,7 +3,7 @@ package explore
 import (
 	"fmt"
 	"leetcode-go/explore/Queues"
-	"leetcode-go/explore/Recursion"
+	"leetcode-go/explore/Recursion/chapter1"
 	"testing"
 )
 
@@ -68,6 +68,6 @@ func TestMark(t *testing.T) {
 func TestReverseString(t *testing.T) {
 	a := []byte{'h', 'e', 'l', 'l', 'o'}
 	fmt.Println(a)
-	Recursion.ReverseString(a)
+	chapter1.ReverseString(a)
 	fmt.Println(a)
 }
