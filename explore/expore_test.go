@@ -4,8 +4,15 @@ import (
 	"fmt"
 	"leetcode-go/explore/Queues"
 	"leetcode-go/explore/Recursion/chapter1"
+	"leetcode-go/explore/Recursion/chapter4"
 	"testing"
 )
+
+func TestPowxn(t *testing.T) {
+	x := 34.00515
+	n := -3
+	fmt.Println(chapter4.GetPowXN(x, n))
+}
 
 func TestMyCircularQueue(t *testing.T) {
 
