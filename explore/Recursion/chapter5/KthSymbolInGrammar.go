@@ -1,4 +1,5 @@
 package chapter5
+
 func kthGrammar(N int, K int) int {
 	if N == 1 {
 		return 0
@@ -13,7 +14,7 @@ func kthGrammar(N int, K int) int {
 	if K > leavesCnt {
 		//right tree
 		leftRes := kthGrammar(N, K-leavesCnt)
-		return leftRes^1
+		return leftRes ^ 1
 
 	} else {
 		//left tree
@@ -34,7 +35,7 @@ func tailRecursionPow(x int, n int) int {
 		return x
 	}
 	if n == -1 {
-		return 1/x
+		return 1 / x
 	}
 	a := tailRecursionPow(x, n/2)
 	if n%2 == 0 {
@@ -43,6 +44,6 @@ func tailRecursionPow(x int, n int) int {
 		if n > 0 {
 			return a * a * x
 		}
-		return a * a * 1/x
+		return a * a * 1 / x
 	}
 }
