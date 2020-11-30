@@ -4,26 +4,25 @@ func myPow(x float64, n int) float64 {
 	if n == 0 {
 		return 1
 	}
-	temp := map[int]float64{
-		1:  x,
-		-1: 1 / x,
-	}
 
-	return fromCache(x, n, temp)
+	return tailRecursionPow(x, n)
 }
 
-func fromCache(x float64, n int, cache map[int]float64) float64 {
-	if cache[n] != 0 {
-		return cache[n]
+func tailRecursionPow(x float64, n int) float64 {
+	if n == 1 {
+		return x
 	}
-	a := fromCache(x, n/2, cache)
+	if n == -1 {
+		return 1 / x
+	}
+	a := tailRecursionPow(x, n/2)
 	if n%2 == 0 {
 		return a * a
 	} else {
 		if n > 0 {
 			return a * a * x
 		}
-		return a * a * 1/x
+		return a * a * 1 / x
 	}
 }
 
