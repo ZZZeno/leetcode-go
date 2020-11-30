@@ -1,3 +1,5 @@
+package chapter5
+
 func kthGrammar(N int, K int) int {
 	if N == 1 {
 		return 0
@@ -19,17 +21,8 @@ func kthGrammar(N int, K int) int {
 
 	} else {
 		//left tree
-		parent := kthGrammar(N-1, (K+1)/2)
-        if parent == 0 {
-            if K % 2 == 0 {
-                return 1
-            }
-            return 0
-        }
-        if K % 2 == 0 {
-            return 0
-        }
-        return 1
+		res := kthGrammar(N-1, (K+1)/2)
+		return res
 	}
 }
 
@@ -58,4 +51,8 @@ func fromCache(x int, n int, cache map[int]int) int {
 		}
 		return a * a * 1/x
 	}
+}
+
+func KthGrammar(N int, K int) int {
+	return kthGrammar(N, K)
 }
