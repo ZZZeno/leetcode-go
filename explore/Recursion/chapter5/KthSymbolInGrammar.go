@@ -1,5 +1,4 @@
 package chapter5
-
 func kthGrammar(N int, K int) int {
 	if N == 1 {
 		return 0
@@ -14,15 +13,11 @@ func kthGrammar(N int, K int) int {
 	if K > leavesCnt {
 		//right tree
 		leftRes := kthGrammar(N, K-leavesCnt)
-		if leftRes == 0 {
-			return 1
-		}
-		return 0
+		return leftRes^1
 
 	} else {
 		//left tree
-		res := kthGrammar(N-1, (K+1)/2)
-		return res
+		return kthGrammar(N-1, K)
 	}
 }
 
@@ -30,19 +25,18 @@ func myPow(x int, n int) int {
 	if n == 0 {
 		return 1
 	}
-	temp := map[int]int{
-		1:  x,
-		-1: 1 / x,
-	}
 
-	return fromCache(x, n, temp)
+	return tailRecursionPow(x, n)
 }
 
-func fromCache(x int, n int, cache map[int]int) int {
-	if cache[n] != 0 {
-		return cache[n]
+func tailRecursionPow(x int, n int) int {
+	if n == 1 {
+		return x
 	}
-	a := fromCache(x, n/2, cache)
+	if n == -1 {
+		return 1/x
+	}
+	a := tailRecursionPow(x, n/2)
 	if n%2 == 0 {
 		return a * a
 	} else {
@@ -51,8 +45,4 @@ func fromCache(x int, n int, cache map[int]int) int {
 		}
 		return a * a * 1/x
 	}
-}
-
-func KthGrammar(N int, K int) int {
-	return kthGrammar(N, K)
 }
