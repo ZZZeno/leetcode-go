@@ -24,11 +24,13 @@ func Square(in <-chan int) <-chan int {
 	return out
 }
 
-func Calc(nums []int) int {
-	in := make(chan int)
-	for n := range nums {
-		in <- n
-	}
-	ret := <-Sum(Square(in))
-	return ret
+func Echo(nums []int) <-chan int {
+	out := make(chan int)
+	go func() {
+		for _, n := range nums {
+			out <- n
+		}
+		close(out)
+	}()
+	return out
 }
