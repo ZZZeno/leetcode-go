@@ -47,9 +47,11 @@ func (v NameVisitor) Visit(fn VisitorFunc) error {
 		return err
 	})
 }
+
 type LogVisitor struct {
 	visitor Visitor
 }
+
 func (v LogVisitor) Visit(fn VisitorFunc) error {
 	return v.visitor.Visit(func(info *Info, err error) error {
 		fmt.Println("LogVisitor() before call function")
@@ -58,5 +60,3 @@ func (v LogVisitor) Visit(fn VisitorFunc) error {
 		return err
 	})
 }
-
-
