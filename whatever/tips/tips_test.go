@@ -23,3 +23,11 @@ func TestMultiWrite(t *testing.T) {
 	}()
 	wg.Wait()
 }
+
+func TestStringStringMapWithLock_ChangeMemAddr(t *testing.T) {
+	mp := StringStringMapWithLock{}
+	mp.Put("TEST", "eeeee")
+	fmt.Println(mp)
+	(&mp).ChangeMemAddr()
+	fmt.Println(mp)
+}
