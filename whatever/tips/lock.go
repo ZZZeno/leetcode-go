@@ -28,3 +28,9 @@ func (this StringStringMapWithLock) Put(key, value string) {
 	defer lock.Unlock()
 	this[key] = value
 }
+
+func (this *StringStringMapWithLock) ChangeMemAddr() {
+	var temp = &StringStringMapWithLock{}
+	temp.Put("TEST", "aaaaa")
+	*this = *temp
+}
