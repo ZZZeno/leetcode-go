@@ -31,3 +31,8 @@ func TestStringStringMapWithLock_ChangeMemAddr(t *testing.T) {
 	(&mp).ChangeMemAddr()
 	fmt.Println(mp)
 }
+
+func TestCtxLearn(t *testing.T) {
+	//CtxLearn()
+	Case3()
+}
