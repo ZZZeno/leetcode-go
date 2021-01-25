@@ -5,6 +5,7 @@ import (
 	"reflect"
 )
 
+
 // 在两个结构体之间给同名字段赋值，要求字段需要是被导出且完全一致
 // 参数 src： 源结构体
 //     dst： 目的结构体
@@ -19,6 +20,7 @@ import (
 // needCopyFields := []string{"Gender", "Name"}
 // CopyFields(&src, &dst, needCopyFields...)
 func CopyFields(src interface{}, dst interface{}, fields ...string) (err error) {
+	var errRet error
 	srcVal := reflect.ValueOf(src).Elem()
 	dstVal := reflect.ValueOf(dst).Elem()
 
@@ -49,18 +51,24 @@ func CopyFields(src interface{}, dst interface{}, fields ...string) (err error) 
 						f.Set(val)
 					} else {
 						fmt.Println(fmt.Sprintf("%s in src and dst are different type\n", field))
+						if errRet == nil {
+							errRet = errors.New(fmt.Sprintf("%s in src and dst are different type\n", field))
+						}
 					}
 				} else {
 					fmt.Println("dst is not an address")
+					if errRet == nil {
+						errRet = errors.New("dst is not an address")
+					}
 				}
 			} else {
 				fmt.Println(fmt.Sprintf("%s cannot be found in src struct\n", field))
 			}
 
 		} else {
-			fmt.Println(fmt.Sprintf("%s cannot be found in dst struct\n", field))
+			// if field in src cannot be found in dst, just skip, no output
+			//fmt.Println(fmt.Sprintf("%s cannot be found in dst struct\n", field))
 		}
 	}
-	return
+	return errRet
 }
-
