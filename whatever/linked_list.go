@@ -91,13 +91,12 @@ func merge2SortedLinkedList(head1 *ListNode, head2 *ListNode) *ListNode {
 	for ptr1 != nil && ptr2 != nil {
 		if ptr1.Val < ptr2.Val {
 			tail.Next = ptr1
-			tail = tail.Next
 			ptr1 = ptr1.Next
 		} else {
 			tail.Next = ptr2
-			tail = tail.Next
 			ptr2 = ptr2.Next
 		}
+		tail = tail.Next
 	}
 	if ptr1 == nil {
 		tail.Next = ptr2
