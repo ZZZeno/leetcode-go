@@ -67,3 +67,43 @@ func getMiddleNodeOfLinkedList(head *ListNode) *ListNode {
 		slow = slow.Next
 	}
 }
+
+// 合并2个有序的单链表
+func merge2SortedLinkedList(head1 *ListNode, head2 *ListNode) *ListNode {
+	if head1 == nil {
+		return head2
+	}
+	if head2 == nil {
+		return head1
+	}
+	var newHead *ListNode
+	var ptr1, ptr2, tail *ListNode
+	if head1.Val < head2.Val {
+		newHead = head1
+		ptr1 = head1.Next
+		ptr2 = head2
+	} else {
+		newHead = head2
+		ptr1 = head1
+		ptr2 = head2.Next
+	}
+	tail = newHead
+	for ptr1 != nil && ptr2 != nil {
+		if ptr1.Val < ptr2.Val {
+			tail.Next = ptr1
+			tail = tail.Next
+			ptr1 = ptr1.Next
+		} else {
+			tail.Next = ptr2
+			tail = tail.Next
+			ptr2 = ptr2.Next
+		}
+	}
+	if ptr1 == nil {
+		tail.Next = ptr2
+	} else {
+		tail.Next = ptr1
+	}
+	return newHead
+}
+
