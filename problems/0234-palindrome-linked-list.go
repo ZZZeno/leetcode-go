@@ -18,6 +18,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// recursion
 func reverseLinkedList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
@@ -25,6 +26,21 @@ func reverseLinkedList(head *ListNode) *ListNode {
 	newHead := reverseLinkedList(head.Next)
 	head.Next.Next = head
 	head.Next = nil
+	return newHead
+}
+
+// none recursion
+func reverseLinkedList2(head *ListNode) *ListNode {
+	var temp, newHead *ListNode
+	if head == nil || head.Next == nil {
+		return head
+	}
+	for head != nil {
+		temp = head
+		head = head.Next
+		temp.Next = newHead
+		newHead = temp
+	}
 	return newHead
 }
 
