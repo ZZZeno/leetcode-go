@@ -47,3 +47,23 @@ func removeLastNIndexNode(head *ListNode, n int) *ListNode {
 	slow = nil
 	return head
 }
+
+// 获取链表的中间节点，如果是奇数个节点返回中间节点，如果是偶数个返回中间两个节点的前面一个节点
+func getMiddleNodeOfLinkedList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil || head.Next.Next == nil {
+		return head
+	}
+	var fast, slow *ListNode
+	fast = head
+	slow = head
+	for {
+		fast = fast.Next.Next
+		if fast == nil {
+			return slow
+		}
+		if fast.Next == nil {
+			return slow.Next
+		}
+		slow = slow.Next
+	}
+}
