@@ -11,9 +11,6 @@ func TestCombinationSum(t *testing.T) {
 	fmt.Printf("%v \n", CombinationSum(candidates, target))
 }
 
-func TestMySqrt(t *testing.T) {
-	MySqrt(8)
-}
 
 func TestClimbStairs(t *testing.T) {
 	ClimbStairs(3)

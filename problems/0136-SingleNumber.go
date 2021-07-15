@@ -2,7 +2,6 @@ package problems
 
 import (
 	"fmt"
-	"sort"
 )
 
 func singleNumber(nums []int) int {

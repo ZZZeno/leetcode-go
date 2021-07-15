@@ -1,7 +1,6 @@
 package problems
 
 import (
-	"fmt"
 	"sort"
 )
 
