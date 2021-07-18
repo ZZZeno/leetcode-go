@@ -1,7 +1,5 @@
 package problems
 
-import "fmt"
-
 func subsets(nums []int) [][]int {
 	l := len(nums)
 	if l == 0 {
@@ -23,6 +21,3 @@ func subsets(nums []int) [][]int {
 	return res
 }
 
-func Subsets(nums []int)  {
-	fmt.Printf("%v\n", subsets(nums))
-}
