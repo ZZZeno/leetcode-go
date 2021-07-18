@@ -1,5 +1,7 @@
 package problems
 
+import "sort"
+
 func permuteUnique(nums []int) [][]int {
 	if len(nums) == 0 {
 		return nil
@@ -9,50 +11,30 @@ func permuteUnique(nums []int) [][]int {
 	}
 
 	var ret [][]int
-	_permutate_1(&ret, nums, 0)
+	//_permutate(&ret, nums, 0)
+	sort.Ints(nums)
+	used := make([]bool, len(nums))
+	var depth = 0
+	var length = len(nums)
+	_permuteWithTempArr(&ret, nums, []int{}, used, depth, length)
 	return ret
 }
 
-func _swap_1(arr []int, i, j int) {
-	arr[i], arr[j] = arr[j], arr[i]
-}
-
-
-func arrEQ(arr1, arr2 []int) bool {
-	if len(arr1) != len(arr2) {
-		return false
-	}
-	for i := range arr1 {
-		if arr1[i] != arr2[i] {
-			return false
-		}
-	}
-	return true
-}
-
-func arrContains(ret *[][]int, arr []int) bool {
-	for _, item := range *ret {
-		if arrEQ(item, arr) {
-			return true
-		}
-	}
-	return false
-}
-
-func _permutate_1(ret *[][]int, arr []int, start int) {
-	if start == len(arr) {
-		if arrContains(ret, arr) {
-			return
-		}
-		var temp = make([]int, len(arr))
+func _permuteWithTempArr(ret *[][]int, ori, arr []int, used []bool, depth, length int) {
+	if len(arr) == length {
+		var temp = make([]int, length)
 		copy(temp, arr)
 		*ret = append(*ret, temp)
 		return
 	}
-
-	for i := start; i < len(arr); i ++ {
-		_swap_1(arr, i, start)
-		_permutate_1(ret, arr, start+1)
-		_swap_1(arr, i, start)
+	for i := 0; i < length; i ++ {
+		if used[i] || (i > 0 && ori[i] == ori[i-1] && !used[i-1]){
+			continue
+		}
+		arr = append(arr, ori[i])
+		used[i] = true
+		_permuteWithTempArr(ret, ori, arr, used, depth+1, length)
+		arr = arr[0:len(arr)-1]
+		used[i] = false
 	}
 }
