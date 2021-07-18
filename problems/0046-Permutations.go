@@ -29,7 +29,29 @@ func permute(nums []int) [][]int {
 	}
 
 	var ret [][]int
-	_permutate(&ret, nums, 0)
-
+	//_permutate(&ret, nums, 0)
+	used := make([]bool, len(nums))
+	var depth = 0
+	var length = len(nums)
+	permuteWithTempArr(&ret, nums, []int{}, used, depth, length)
 	return ret
+}
+
+func permuteWithTempArr(ret *[][]int, ori, arr []int, used []bool, depth, length int) {
+	if len(arr) == length {
+		var temp = make([]int, length)
+		copy(temp, arr)
+		*ret = append(*ret, temp)
+		return
+	}
+	for i := 0; i < length; i ++ {
+		if used[i] {
+			continue
+		}
+		arr = append(arr, ori[i])
+		used[i] = true
+		permuteWithTempArr(ret, ori, arr, used, depth+1, length)
+		arr = arr[0:len(arr)-1]
+		used[i] = false
+	}
 }
