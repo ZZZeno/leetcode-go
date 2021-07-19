@@ -13,16 +13,12 @@ func combinationSum2(candidates []int, target int) [][]int {
 		return nil
 	}
 	var res [][]int
-	var used = make([]bool, len(candidates))
-	findCombination2(&res, candidates, []int{}, 0, target, used)
+	findCombination2(&res, candidates, []int{}, 0, target)
 	return res
 }
 
-func findCombination2(res *[][]int, candidates, path []int, index, target int, used []bool) {
+func findCombination2(res *[][]int, candidates, path []int, index, target int) {
 	if target == 0 {
-		if arrIn(res, path) {
-			return
-		}
 		var temp = make([]int, len(path))
 		copy(temp, path)
 		*res = append(*res, temp)
@@ -31,40 +27,36 @@ func findCombination2(res *[][]int, candidates, path []int, index, target int, u
 	if index == len(candidates) {
 		return
 	}
+	if target < 0 {
+		return
+	}
 	for i := index; i < len(candidates); i ++ {
-		if target < candidates[i] {
-			return
-		}
-		if used[i] {
+		if index != i && candidates[i] == candidates[i-1] {
 			continue
 		}
-		target -= candidates[i]
 		path = append(path, candidates[i])
-		used[i] = true
-		findCombination2(res, candidates, path, i+1, target, used)
-		target += candidates[i]
+		findCombination2(res, candidates, path, i+1, target-candidates[i])
 		path = path[0: len(path)-1]
-		used[i] = false
 	}
 }
-
-func arrEQ(arr, arr1 []int) bool {
-	if len(arr) != len(arr1) {
-		return false
-	}
-	for i := range arr {
-		if arr[i] != arr1[i] {
-			return false
-		}
-	}
-	return true
-}
-
-func arrIn(res *[][]int, arr []int) bool {
-	for _, item := range *res {
-		if arrEQ(arr, item) {
-			return true
-		}
-	}
-	return false
-}
+//
+//func arrEQ(arr, arr1 []int) bool {
+//	if len(arr) != len(arr1) {
+//		return false
+//	}
+//	for i := range arr {
+//		if arr[i] != arr1[i] {
+//			return false
+//		}
+//	}
+//	return true
+//}
+//
+//func arrIn(res *[][]int, arr []int) bool {
+//	for _, item := range *res {
+//		if arrEQ(arr, item) {
+//			return true
+//		}
+//	}
+//	return false
+//}
