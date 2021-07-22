@@ -21,3 +21,21 @@ func subsets(nums []int) [][]int {
 	return res
 }
 
+func subsetsVerBackTracking(nums []int) [][]int {
+	var res [][]int
+	var path []int
+	subsetsBT(&res, nums, path, 0)
+	return res
+}
+
+func subsetsBT(res *[][]int, arr []int, path []int, idx int) {
+	var temp = make([]int, len(path))
+	copy(temp, path)
+	*res = append(*res, temp)
+
+	for i := idx; i < len(arr); i++ {
+		path = append(path, arr[i])
+		subsetsBT(res, arr, path, i+1)
+		path = path[0 : len(path)-1]
+	}
+}
